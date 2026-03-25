@@ -17,7 +17,7 @@ export class ProfileService {
     return this.prisma.profile.findMany();
   }
 
-  async findOne(id: string) { // MUDADO PARA STRING
+  async findOne(id: string) { 
     const profile = await this.prisma.profile.findUnique({
       where: { id },
     });
@@ -25,14 +25,14 @@ export class ProfileService {
     return profile;
   }
 
-  async update(id: string, updateProfileDto: UpdateProfileDto) { // MUDADO PARA STRING
+  async update(id: string, updateProfileDto: UpdateProfileDto) { 
     return this.prisma.profile.update({
       where: { id },
       data: updateProfileDto,
     });
   }
 
-  async remove(id: string) { // MUDADO PARA STRING
+  async remove(id: string) {
     return this.prisma.profile.delete({
       where: { id },
     });
