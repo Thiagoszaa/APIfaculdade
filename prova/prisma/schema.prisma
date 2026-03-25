@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  }
+
+model Profile {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]   // 1:N
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String
+
+  profile   Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String
+
+  address   Address?  
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  street    String
+  number    Int
+  city      String
+  state     String
+  zipCode   String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  userId    String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
